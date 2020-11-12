@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--导入连接数据库文件-->
+    <properties resource="db.properties" />
+
+    <settings>
+        <!-- 控制台打印sql语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--给实体类指定别名-->
+    <typeAliases>
+        <package name="com.bjpowernode.deptSys.bean" />
+    </typeAliases>
+
+
+    <plugins>
+        <!--如果不配置拦截器，会导致每次查询的都是所有数据-->
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 使用MySQL方言的分页 -->
+            <property name="helperDialect" value="mysql"/><!--如果使用mysql，这里value为mysql-->
+            <property name="pageSizeZero" value="true"/>
+        </plugin>
+    </plugins>
+
+    <!--
+        配置数据库
+    -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <!--localhost:3306/1795?setUnicode=true&characterEncoding=UTF8&serverTimeZone:UTC-->
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <!--将映射文件导入进来-->
+    <mappers>
+       <mapper resource="UserMapper.xml" />
+       <mapper resource="DeptMapper.xml" />
+    </mappers>
+
+</configuration>

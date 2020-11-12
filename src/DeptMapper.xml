@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.deptSys.mapper.DeptMapper">
+
+
+    <!--查询部门列表信息-->
+    <select id="deptList" resultType="dept">
+        select * from dept
+        <where>
+            <if test="dname != null and dname != ''">
+                dname like '%' #{dname} '%'
+            </if>
+        </where>
+    </select>
+
+
+    <!--添加部门-->
+    <insert id="addDept">
+        insert into dept(dname,loc) values(#{dname},#{loc})
+    </insert>
+
+    <!--根据主键查询部门-->
+    <select id="queryDeptById" resultType="dept">
+        select * from dept where deptno=#{deptno}
+    </select>
+
+    <!--根据主键更新部门信息-->
+    <update id="editDept">
+        update dept set dname=#{dname},loc=#{loc} where deptno=#{deptno}
+    </update>
+
+    <!--
+        批量删除
+        collection:容器类型
+            数组:array
+            集合:list
+        item:每次用于接收遍历的中间变量
+        separator:分隔符
+        open:前缀
+        close:后缀
+    -->
+    <delete id="deleteBatch">
+        delete from dept where deptno in
+        <foreach collection="array" item="deptno" separator="," open="(" close=")">
+            #{deptno}
+        </foreach>
+    </delete>
+</mapper>
