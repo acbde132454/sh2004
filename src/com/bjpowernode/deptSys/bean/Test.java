@@ -13,5 +13,6 @@ package com.bjpowernode.deptSys.bean;
 public class Test {
 
     private int id;
+    private String name;
 
 }
