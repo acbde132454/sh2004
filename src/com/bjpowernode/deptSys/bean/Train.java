@@ -11,4 +11,7 @@ package com.bjpowernode.deptSys.bean;
  * Copyright: Copyright (c) 2020
  */
 public class Train {
+
+    private String tNme;
+
 }
