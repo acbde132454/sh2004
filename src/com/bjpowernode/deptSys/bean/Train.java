@@ -12,7 +12,5 @@ package com.bjpowernode.deptSys.bean;
  */
 public class Train {
 
-    private String tNme;
 
-    private String age;
 }
